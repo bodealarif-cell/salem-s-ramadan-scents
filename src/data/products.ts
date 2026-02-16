@@ -22,7 +22,7 @@ export const products: Product[] = [
     description: "عطر مميز بأجواء رمضانية روحانية، مزيج من العود والمسك الأبيض مع لمسات من العنبر.",
     layers: { top: "العود الكمبودي", heart: "المسك الأبيض", base: "العنبر الملكي" },
     source: "كمبوديا والهند",
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400",
+    image: "https://i.ibb.co/Gfxj4RKn/d0e7fe27-e53d-44f1-82ff-c3b5e5405faf.jpg",
     badge: "أفضل منتج",
   },
   {
@@ -32,7 +32,7 @@ export const products: Product[] = [
     description: "عطر فاخر للمناسبات الخاصة، يجمع بين الورد الدمشقي والعود مع قاعدة من خشب الصندل.",
     layers: { top: "الورد الدمشقي", heart: "العود الهندي", base: "خشب الصندل" },
     source: "سوريا والهند",
-    image: "https://images.unsplash.com/photo-1594035910387-fea081ba573b?w=400",
+    image: "https://i.ibb.co/5W24XW6h/d137db26-18b8-42fc-8a50-9ec3f3391aea-thumbnail-1000x1000-70.jpg",
   },
   {
     id: 3,
@@ -50,7 +50,7 @@ export const products: Product[] = [
     description: "عود كمبودي فاخر من أندر الأنواع، رائحة قوية وثابتة تدوم طوال اليوم.",
     layers: { top: "العود الكمبودي", heart: "خشب الأرز", base: "الراتنج" },
     source: "كمبوديا",
-    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400",
+    image: "https://i.ibb.co/zTzp1YkR/430618826-7260200654027347-364486546344387881-n.jpg",
     specialTag: "للأسف خلص يا برو",
   },
   {
@@ -79,7 +79,7 @@ export const products: Product[] = [
     description: "عطر يعكس الفخامة والرقي، مزيج من العود والبخور مع لمسات من الزعفران.",
     layers: { top: "الزعفران", heart: "البخور", base: "العود المعتق" },
     source: "الإمارات",
-    image: "https://images.unsplash.com/photo-1619994403073-2cec844b8c63?w=400",
+    image: "https://i.ibb.co/WNgwSmkt/image.webp",
   },
   {
     id: 8,
@@ -88,7 +88,7 @@ export const products: Product[] = [
     description: "من أرقى العطور الشرقية، يجمع بين العود والورد مع قاعدة دخانية.",
     layers: { top: "الورد البلغاري", heart: "العود", base: "دخان البخور" },
     source: "بلغاريا والهند",
-    image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400",
+    image: "https://i.ibb.co/RkZLVnYs/61-Ak-Rdrgy-WL-AC-UF894-1000-QL80.jpg",
   },
   {
     id: 9,
@@ -115,7 +115,7 @@ export const products: Product[] = [
     description: "عطر صباحي منعش بنفحات الحمضيات والزهور البيضاء.",
     layers: { top: "الليمون والبرتقال", heart: "الياسمين", base: "المسك" },
     source: "إيطاليا",
-    image: "https://images.unsplash.com/photo-1595425964272-fc617fa85ad8?w=400",
+    image: "https://i.ibb.co/3y9XDLy3/4.jpg",
   },
   {
     id: 12,
@@ -156,8 +156,8 @@ export const seasonalPerfumes = {
 export const faqData = [
   { q: "ما هي سياسة الإرجاع؟", a: "يمكنك إرجاع المنتج خلال 7 أيام من الاستلام بشرط أن يكون مغلقاً ولم يُستخدم." },
   { q: "كم تستغرق مدة التوصيل؟", a: "التوصيل يستغرق من 2 إلى 5 أيام عمل حسب المنطقة. نوفر أسرع دليفري في مصر!" },
-  { q: "هل العطور أصلية؟", a: "نعم، جميع عطورنا أصلية 100% ومستوردة من أفضل المصادر العالمية." },
-  { q: "هل يوجد دفع عند الاستلام؟", a: "نعم، نوفر خدمة الدفع عند الاستلام في جميع المحافظات." },
+  { q: "هل العطور أصلية؟", a: "نعم، هههه أكيد مش أصليه بس هاي هاي كوبي." },
+  { q: "هل يوجد دفع عند الاستلام؟", a: "نعم، نوفر خدمة الدفع عند الاستلام في جميع المحافظات.عدا المنوفية ونجع عبدالرسول" },
   { q: "ما هي تكلفة الشحن؟", a: "الشحن مجاني للطلبات فوق 350 ج.م. وإلا تكون تكلفة الشحن 60 ج.م فقط." },
   { q: "هل يمكنني اختيار حجم العطر؟", a: "نعم، نوفر 3 أحجام: 100ml و 150ml و 220ml لمعظم العطور." },
 ];
