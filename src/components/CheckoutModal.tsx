@@ -28,18 +28,25 @@ const CheckoutModal = ({ items, total, shipping, onClose, onComplete }: Checkout
 
     try {
       await emailjs.send(
-        "service_nyg72od",
-        "template_achxet5",
-        {
-          customer_name: name,
-          customer_phone: phone,
-          customer_address: address,
-          order_details: orderDetails,
-          subtotal: `${total} ج.م`,
-          shipping_cost: shipping === 0 ? "مجاني" : `${shipping} ج.م`,
-          total_amount: `${total + shipping} ج.م`,
-        },
-        "d6uaINDZn8lMtDhQq"
+  "service_nyg72od",
+  "template_achxet5",
+  {
+    // بيانات العميل – الأسماء دي لازم تطابق القالب بالضبط
+    user_name: name,
+    user_phone: phone,
+    user_address: address,
+
+    // تفاصيل الطلب
+    order_details: orderDetails,
+
+    // السعر
+    subtotal: `${total} ج.م`,
+    shipping_cost: shipping === 0 ? "مجاني" : `${shipping} ج.م`,
+    total_price: `${total + shipping} ج.م`,   // بعض القوالب تستخدم total_price بدل total_amount
+    total_amount: `${total + shipping} ج.م`,   // احتياطاً لو كان القالب يستخدم total_amount
+  },
+  "d6uaINDZn8lMtDhQq"
+);
       );
     } catch (error) {
       console.error("EmailJS error:", error);
