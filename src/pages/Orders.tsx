@@ -42,7 +42,16 @@ const Orders = () => {
   return (
     <div className="min-h-screen bg-black text-white p-8" dir="rtl">
       <div className="max-w-4xl mx-auto">
+        {/* زر العودة للرئيسية */}
+        <div className="mb-4">
+          <Link to="/" className="text-gold hover:text-yellow-500">
+            <i className="fas fa-arrow-right ml-2"></i>
+            العودة للرئيسية
+          </Link>
+        </div>
+
         <h1 className="text-3xl font-bold text-gold mb-6">طلباتي</h1>
+
         {orders.length === 0 ? (
           <p className="text-gray-400">لا توجد طلبات سابقة.</p>
         ) : (
