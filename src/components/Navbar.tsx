@@ -5,6 +5,8 @@ import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginModal from './LoginModal';
+import React from 'react';
+
 const [showLoginModal, setShowLoginModal] = useState(false);
 interface NavbarProps {
   cartCount: number;
