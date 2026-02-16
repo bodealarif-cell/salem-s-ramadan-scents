@@ -1,6 +1,9 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import type { CartItem } from "@/hooks/useCart";
+import { db } from '../firebase/config';
+import { collection, addDoc } from 'firebase/firestore';
+import { useAuthStore } from '../store/authStore';
 
 interface CheckoutModalProps {
   items: CartItem[];
