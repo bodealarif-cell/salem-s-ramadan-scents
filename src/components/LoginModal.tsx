@@ -30,50 +30,64 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-black/70"
+      className="fixed z-[60] bg-black/70"
+      style={{
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        width: '100vw',
+      }}
       onClick={onClose}
     >
       <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4"
+        className="bg-gray-900 p-8 rounded-2xl border border-gold/30 w-full max-w-md relative"
+        style={{ maxHeight: '90vh', overflowY: 'auto' }}
         onClick={e => e.stopPropagation()}
       >
-        <div className="bg-gray-900 p-8 rounded-2xl border border-gold/30 relative">
-          <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
-            <i className="fas fa-times"></i>
+        <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
+          <i className="fas fa-times"></i>
+        </button>
+        <h2 className="text-3xl font-bold text-gold mb-6 text-center">
+          {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            placeholder="البريد الإلكتروني"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+            required
+          />
+          <input
+            type="password"
+            placeholder="كلمة المرور"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+            required
+          />
+          <button type="submit" className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition">
+            {isLogin ? 'دخول' : 'تسجيل'}
           </button>
-          <h2 className="text-3xl font-bold text-gold mb-6 text-center">
-            {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="email"
-              placeholder="البريد الإلكتروني"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 bg-black border border-gray-700 rounded text-white"
-              required
-            />
-            <input
-              type="password"
-              placeholder="كلمة المرور"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 bg-black border border-gray-700 rounded text-white"
-              required
-            />
-            <button type="submit" className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition">
-              {isLogin ? 'دخول' : 'تسجيل'}
-            </button>
-          </form>
-          <p className="mt-4 text-center text-gray-400">
-            {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
-            <button onClick={() => setIsLogin(!isLogin)} className="text-gold hover:underline">
-              {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
-            </button>
-          </p>
-        </div>
+        </form>
+        <p className="mt-4 text-center text-gray-400">
+          {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
+          <button onClick={() => setIsLogin(!isLogin)} className="text-gold hover:underline">
+            {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
+          </button>
+        </p>
       </div>
     </div>
+  );
+};
+
+export default LoginModal;
   );
 };
 
