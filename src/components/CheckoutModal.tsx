@@ -47,7 +47,6 @@ const CheckoutModal = ({ items, total, shipping, onClose, onComplete }: Checkout
   },
   "d6uaINDZn8lMtDhQq"
 );
-      );
     } catch (error) {
       console.error("EmailJS error:", error);
     }
