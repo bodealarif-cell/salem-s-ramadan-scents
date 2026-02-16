@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import HreidiAI from './components/HreidiAI';
+import Orders from './pages/Orders';
 
 const queryClient = new QueryClient();
 
