@@ -5,6 +5,7 @@ import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginModal from './LoginModal';
+import { useCart } from "@/hooks/useCart"; // استيراد useCart
 
 interface NavbarProps {
   cartCount: number;
@@ -18,7 +19,8 @@ const Navbar = ({ cartCount, onCartClick, onTopClick, onMenuClick }: NavbarProps
   const [scrolled, setScrolled] = useState(false);
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const [showLoginModal, setShowLoginModal] = useState(false); // ✅ هنا داخل المكون
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { clearCart } = useCart(); // جلب دالة تفريغ السلة
 
   useState(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -27,6 +29,7 @@ const Navbar = ({ cartCount, onCartClick, onTopClick, onMenuClick }: NavbarProps
   });
 
   const handleLogout = async () => {
+    clearCart(); // تفريغ السلة أولاً
     await signOut(auth);
     navigate('/');
   };
