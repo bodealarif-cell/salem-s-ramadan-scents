@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebase/config';
-import { sendPasswordResetEmail } from 'firebase/auth';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -29,7 +28,20 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     }
   };
 
-  // أنماط مضمونة للتوسيط - تم التعديل هنا
+  const handleForgotPassword = async () => {
+    if (!email) {
+      alert('الرجاء إدخال بريدك الإلكتروني أولاً.');
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert('تم إرسال رابط إعادة تعيين كلمة السر إلى بريدك الإلكتروني.');
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  // أنماط مضمونة للتوسيط (كما كانت)
   const overlayStyle: React.CSSProperties = {
     position: 'fixed',
     top: 0,
@@ -44,7 +56,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   };
 
   const modalStyle: React.CSSProperties = {
-    backgroundColor: '#111827', // gray-900
+    backgroundColor: '#111827',
     padding: '2rem',
     borderRadius: '1rem',
     border: '1px solid rgba(255, 215, 0, 0.3)',
@@ -54,18 +66,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     maxHeight: '90vh',
     overflowY: 'auto',
   };
-  const handleForgotPassword = async () => {
-  if (!email) {
-    alert('الرجاء إدخال بريدك الإلكتروني أولاً.');
-    return;
-  }
-  try {
-    await sendPasswordResetEmail(auth, email);
-    alert('تم إرسال رابط إعادة تعيين كلمة السر إلى بريدك الإلكتروني.');
-  } catch (error: any) {
-    alert(error.message);
-  }
-};
+
   return (
     <div style={overlayStyle} onClick={onClose}>
       <div style={modalStyle} onClick={e => e.stopPropagation()}>
@@ -147,25 +148,28 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             {isLogin ? 'دخول' : 'تسجيل'}
           </button>
         </form>
-    {isLogin && (
-  <button
-    onClick={handleForgotPassword}
-    style={{
-      color: '#FFD700',
-      background: 'none',
-      border: 'none',
-      cursor: 'pointer',
-      textDecoration: 'underline',
-      fontSize: '0.9rem',
-      marginTop: '0.5rem',
-      display: 'block',
-      width: '100%',
-      textAlign: 'center',
-    }}
-  >
-    نسيت كلمة السر؟
-  </button>
-)}        
+
+        {/* زر نسيت كلمة السر - يظهر فقط في وضع تسجيل الدخول */}
+        {isLogin && (
+          <button
+            onClick={handleForgotPassword}
+            style={{
+              color: '#FFD700',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              fontSize: '0.9rem',
+              marginTop: '0.5rem',
+              display: 'block',
+              width: '100%',
+              textAlign: 'center',
+            }}
+          >
+            نسيت كلمة السر؟
+          </button>
+        )}
+
         <p style={{ marginTop: '1rem', textAlign: 'center', color: '#9CA3AF' }}>
           {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
           <button
