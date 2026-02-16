@@ -28,7 +28,28 @@ const CheckoutModal = ({ items, total, shipping, onClose, onComplete }: Checkout
     const orderDetails = items
       .map((i) => `${i.name} (${i.size}) × ${i.quantity} = ${i.price * i.quantity} ج.م`)
       .join("\n");
+       const user = useAuthStore.getState().user;
 
+// حفظ الطلب في Firestore
+const orderData = {
+  userId: user?.uid || null,
+  userName: name,
+  userPhone: phone,
+  userAddress: address,
+  items: items.map(i => ({
+    name: i.name,
+    size: i.size,
+    quantity: i.quantity,
+    price: i.price
+  })),
+  subtotal: total,
+  shipping: shipping,
+  total: total + shipping,
+  createdAt: new Date().toISOString(),
+  status: 'جديد'
+};
+
+await addDoc(collection(db, 'orders'), orderData);
     try {
       await emailjs.send(
   "service_nyg72od",
