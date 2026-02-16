@@ -29,8 +29,15 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70" onClick={onClose}>
-      <div className="bg-gray-900 p-8 rounded-2xl border border-gold/30 w-full max-w-md relative" onClick={e => e.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70"
+      onClick={onClose}
+      style={{ top: 0, left: 0, right: 0, bottom: 0 }} // تأكيد إضافي
+    >
+      <div
+        className="bg-gray-900 p-8 rounded-2xl border border-gold/30 w-full max-w-md relative"
+        onClick={e => e.stopPropagation()}
+      >
         <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
           <i className="fas fa-times"></i>
         </button>
