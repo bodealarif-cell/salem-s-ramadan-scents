@@ -22,46 +22,83 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
       }
-      onClose(); // إغلاق المودال بعد النجاح
+      onClose();
     } catch (error: any) {
       alert(error.message);
     }
   };
 
+  // أنماط مضمونة للتوسيط
+  const overlayStyle: React.CSSProperties = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 60,
+  };
+
+  const modalStyle: React.CSSProperties = {
+    backgroundColor: '#111827', // gray-900
+    padding: '2rem',
+    borderRadius: '1rem',
+    border: '1px solid rgba(255, 215, 0, 0.3)',
+    width: '100%',
+    maxWidth: '28rem',
+    position: 'relative',
+    maxHeight: '90vh',
+    overflowY: 'auto',
+  };
+
   return (
-    <div
-      className="fixed z-[60] bg-black/70"
-      style={{
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        width: '100vw',
-      }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-gray-900 p-8 rounded-2xl border border-gold/30 w-full max-w-md relative"
-        style={{ maxHeight: '90vh', overflowY: 'auto' }}
-        onClick={e => e.stopPropagation()}
-      >
-        <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
+    <div style={overlayStyle} onClick={onClose}>
+      <div style={modalStyle} onClick={e => e.stopPropagation()}>
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            left: '1rem',
+            top: '1rem',
+            color: '#9CA3AF',
+            fontSize: '1.5rem',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#FFD700')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#9CA3AF')}
+        >
           <i className="fas fa-times"></i>
         </button>
-        <h2 className="text-3xl font-bold text-gold mb-6 text-center">
+
+        <h2 style={{
+          fontSize: '1.875rem',
+          fontWeight: 'bold',
+          color: '#FFD700',
+          marginBottom: '1.5rem',
+          textAlign: 'center',
+        }}>
           {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <input
             type="email"
             placeholder="البريد الإلكتروني"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              backgroundColor: '#000',
+              border: '1px solid #374151',
+              borderRadius: '0.5rem',
+              color: '#fff',
+            }}
             required
           />
           <input
@@ -69,25 +106,53 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             placeholder="كلمة المرور"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              backgroundColor: '#000',
+              border: '1px solid #374151',
+              borderRadius: '0.5rem',
+              color: '#fff',
+            }}
             required
           />
-          <button type="submit" className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition">
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              backgroundColor: '#FFD700',
+              color: '#000',
+              padding: '0.75rem',
+              borderRadius: '0.5rem',
+              fontWeight: 'bold',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background-color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E6C200')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFD700')}
+          >
             {isLogin ? 'دخول' : 'تسجيل'}
           </button>
         </form>
-        <p className="mt-4 text-center text-gray-400">
+
+        <p style={{ marginTop: '1rem', textAlign: 'center', color: '#9CA3AF' }}>
           {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
-          <button onClick={() => setIsLogin(!isLogin)} className="text-gold hover:underline">
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            style={{
+              color: '#FFD700',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+            }}
+          >
             {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
           </button>
         </p>
       </div>
     </div>
-  );
-};
-
-export default LoginModal;
   );
 };
 
