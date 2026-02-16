@@ -1,29 +1,31 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from 'react';
 
 const RamadanPopup = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShow(true), 1000);
-    return () => clearTimeout(timer);
+    // تحقق مما إذا تم عرض النافذة من قبل في هذه الجلسة
+    const hasSeenPopup = sessionStorage.getItem('ramadanPopupSeen');
+    if (!hasSeenPopup) {
+      setShow(true);
+      sessionStorage.setItem('ramadanPopupSeen', 'true');
+    }
   }, []);
 
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm" onClick={() => setShow(false)}>
-      <div className="bg-card border-2 border-primary rounded-2xl max-w-sm w-full shadow-2xl shadow-primary/20 text-center p-8" onClick={e => e.stopPropagation()}>
-        <div className="text-5xl mb-4">🌙</div>
-        <h3 className="text-2xl font-bold text-primary mb-3">عرض التراويح الخاص!</h3>
-        <p className="text-card-foreground mb-2">عطر التراويح بخصم <span className="text-primary font-bold">30%</span></p>
-        <p className="text-3xl font-bold text-primary mb-4">99.99 ج.م فقط!</p>
-        <p className="text-muted-foreground text-sm mb-6">العرض لفترة محدودة - رمضان كريم 🏮</p>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70" onClick={() => setShow(false)}>
+      <div className="bg-gray-900 p-8 rounded-2xl border border-gold/30 max-w-md w-full relative" onClick={e => e.stopPropagation()}>
+        <button onClick={() => setShow(false)} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
+          <i className="fas fa-times"></i>
+        </button>
+        <i className="fas fa-star-and-crescent text-gold text-5xl mb-4 block text-center"></i>
+        <h2 className="text-3xl font-bold text-gold mb-2 text-center">🌙 عرض التراويح</h2>
+        <p className="text-lg text-white mb-4 text-center">عطر التراويح الجديد بخصم 30% لفترة محدودة</p>
         <button
-          onClick={() => {
-            setShow(false);
-            document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
-          }}
-          className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-bold hover:bg-gold-dark transition-colors"
+          onClick={() => setShow(false)}
+          className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition"
         >
           تسوق الآن
         </button>
