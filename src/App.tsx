@@ -21,8 +21,8 @@ const App = () => (
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
+       <HreidiAI />
   </QueryClientProvider>
-        <HreidiAI />
 );
 
 export default App;
