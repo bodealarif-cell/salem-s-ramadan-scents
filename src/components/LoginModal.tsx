@@ -11,6 +11,8 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogin, setIsLogin] = useState(true);
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   if (!isOpen) return null;
 
@@ -28,20 +30,25 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
     }
   };
 
-  const handleForgotPassword = async () => {
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!email) {
-      alert('الرجاء إدخال بريدك الإلكتروني أولاً.');
+      alert('الرجاء إدخال البريد الإلكتروني');
       return;
     }
     try {
       await sendPasswordResetEmail(auth, email);
-      alert('تم إرسال رابط إعادة تعيين كلمة السر إلى بريدك الإلكتروني.');
+      setResetSent(true);
+      setTimeout(() => {
+        setForgotPassword(false);
+        setResetSent(false);
+      }, 3000);
     } catch (error: any) {
       alert(error.message);
     }
   };
 
-  // أنماط مضمونة للتوسيط (كما كانت)
+  // أنماط مضمونة للتوسيط
   const overlayStyle: React.CSSProperties = {
     position: 'fixed',
     top: 0,
@@ -88,103 +95,193 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
           <i className="fas fa-times"></i>
         </button>
 
-        <h2 style={{
-          fontSize: '1.875rem',
-          fontWeight: 'bold',
-          color: '#FFD700',
-          marginBottom: '1.5rem',
-          textAlign: 'center',
-        }}>
-          {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
-        </h2>
-
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <input
-            type="email"
-            placeholder="البريد الإلكتروني"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '0.75rem',
-              backgroundColor: '#000',
-              border: '1px solid #374151',
-              borderRadius: '0.5rem',
-              color: '#fff',
-            }}
-            required
-          />
-          <input
-            type="password"
-            placeholder="كلمة المرور"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{
-              width: '100%',
-              padding: '0.75rem',
-              backgroundColor: '#000',
-              border: '1px solid #374151',
-              borderRadius: '0.5rem',
-              color: '#fff',
-            }}
-            required
-          />
-          <button
-            type="submit"
-            style={{
-              width: '100%',
-              backgroundColor: '#FFD700',
-              color: '#000',
-              padding: '0.75rem',
-              borderRadius: '0.5rem',
+        {!forgotPassword ? (
+          <>
+            <h2 style={{
+              fontSize: '1.875rem',
               fontWeight: 'bold',
-              border: 'none',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E6C200')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFD700')}
-          >
-            {isLogin ? 'دخول' : 'تسجيل'}
-          </button>
-        </form>
-
-        {/* زر نسيت كلمة السر - يظهر فقط في وضع تسجيل الدخول */}
-        {isLogin && (
-          <button
-            onClick={handleForgotPassword}
-            style={{
               color: '#FFD700',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              fontSize: '0.9rem',
-              marginTop: '0.5rem',
-              display: 'block',
-              width: '100%',
+              marginBottom: '1.5rem',
               textAlign: 'center',
-            }}
-          >
-            نسيت كلمة السر؟
-          </button>
-        )}
+            }}>
+              {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
+            </h2>
 
-        <p style={{ marginTop: '1rem', textAlign: 'center', color: '#9CA3AF' }}>
-          {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            style={{
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <input
+                type="email"
+                placeholder="البريد الإلكتروني"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  backgroundColor: '#000',
+                  border: '1px solid #374151',
+                  borderRadius: '0.5rem',
+                  color: '#fff',
+                }}
+                required
+              />
+              {isLogin && (
+                <input
+                  type="password"
+                  placeholder="كلمة المرور"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: '#000',
+                    border: '1px solid #374151',
+                    borderRadius: '0.5rem',
+                    color: '#fff',
+                  }}
+                  required
+                />
+              )}
+              {!isLogin && (
+                <input
+                  type="password"
+                  placeholder="كلمة المرور"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: '#000',
+                    border: '1px solid #374151',
+                    borderRadius: '0.5rem',
+                    color: '#fff',
+                  }}
+                  required
+                />
+              )}
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  backgroundColor: '#FFD700',
+                  color: '#000',
+                  padding: '0.75rem',
+                  borderRadius: '0.5rem',
+                  fontWeight: 'bold',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#E6C200')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFD700')}
+              >
+                {isLogin ? 'دخول' : 'تسجيل'}
+              </button>
+            </form>
+
+            {isLogin && (
+              <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+                <button
+                  onClick={() => setForgotPassword(true)}
+                  style={{
+                    color: '#FFD700',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    fontSize: '0.9rem',
+                  }}
+                >
+                  نسيت كلمة السر؟
+                </button>
+              </div>
+            )}
+
+            <p style={{ marginTop: '1rem', textAlign: 'center', color: '#9CA3AF' }}>
+              {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
+              <button
+                onClick={() => setIsLogin(!isLogin)}
+                style={{
+                  color: '#FFD700',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                }}
+              >
+                {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
+              </button>
+            </p>
+          </>
+        ) : (
+          // وضع استعادة كلمة السر
+          <>
+            <h2 style={{
+              fontSize: '1.875rem',
+              fontWeight: 'bold',
               color: '#FFD700',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-            }}
-          >
-            {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
-          </button>
-        </p>
+              marginBottom: '1.5rem',
+              textAlign: 'center',
+            }}>
+              استعادة كلمة السر
+            </h2>
+
+            {resetSent ? (
+              <p style={{ color: '#4CAF50', textAlign: 'center', marginBottom: '1rem' }}>
+                تم إرسال رابط إعادة التعيين إلى بريدك الإلكتروني.
+              </p>
+            ) : (
+              <form onSubmit={handleForgotPassword} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <input
+                  type="email"
+                  placeholder="البريد الإلكتروني"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem',
+                    backgroundColor: '#000',
+                    border: '1px solid #374151',
+                    borderRadius: '0.5rem',
+                    color: '#fff',
+                  }}
+                  required
+                />
+                <button
+                  type="submit"
+                  style={{
+                    width: '100%',
+                    backgroundColor: '#FFD700',
+                    color: '#000',
+                    padding: '0.75rem',
+                    borderRadius: '0.5rem',
+                    fontWeight: 'bold',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  إرسال رابط إعادة التعيين
+                </button>
+              </form>
+            )}
+
+            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+              <button
+                onClick={() => {
+                  setForgotPassword(false);
+                  setResetSent(false);
+                }}
+                style={{
+                  color: '#FFD700',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                }}
+              >
+                العودة لتسجيل الدخول
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
