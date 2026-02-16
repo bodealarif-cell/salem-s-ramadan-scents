@@ -30,47 +30,48 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70"
+      className="fixed inset-0 z-[60] bg-black/70"
       onClick={onClose}
-      style={{ top: 0, left: 0, right: 0, bottom: 0 }} // تأكيد إضافي
     >
       <div
-        className="bg-gray-900 p-8 rounded-2xl border border-gold/30 w-full max-w-md relative"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md p-4"
         onClick={e => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
-          <i className="fas fa-times"></i>
-        </button>
-        <h2 className="text-3xl font-bold text-gold mb-6 text-center">
-          {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="البريد الإلكتروني"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
-            required
-          />
-          <input
-            type="password"
-            placeholder="كلمة المرور"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 bg-black border border-gray-700 rounded text-white"
-            required
-          />
-          <button type="submit" className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition">
-            {isLogin ? 'دخول' : 'تسجيل'}
+        <div className="bg-gray-900 p-8 rounded-2xl border border-gold/30 relative">
+          <button onClick={onClose} className="absolute left-4 top-4 text-gray-400 hover:text-gold text-xl">
+            <i className="fas fa-times"></i>
           </button>
-        </form>
-        <p className="mt-4 text-center text-gray-400">
-          {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
-          <button onClick={() => setIsLogin(!isLogin)} className="text-gold hover:underline">
-            {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
-          </button>
-        </p>
+          <h2 className="text-3xl font-bold text-gold mb-6 text-center">
+            {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="email"
+              placeholder="البريد الإلكتروني"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+              required
+            />
+            <input
+              type="password"
+              placeholder="كلمة المرور"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 bg-black border border-gray-700 rounded text-white"
+              required
+            />
+            <button type="submit" className="w-full bg-gold text-black py-3 rounded font-bold hover:bg-yellow-500 transition">
+              {isLogin ? 'دخول' : 'تسجيل'}
+            </button>
+          </form>
+          <p className="mt-4 text-center text-gray-400">
+            {isLogin ? 'ليس لديك حساب؟ ' : 'لديك حساب بالفعل؟ '}
+            <button onClick={() => setIsLogin(!isLogin)} className="text-gold hover:underline">
+              {isLogin ? 'إنشاء حساب' : 'تسجيل الدخول'}
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );
