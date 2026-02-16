@@ -4,6 +4,7 @@ import { useAuthStore } from '../store/authStore';
 import { auth } from '../firebase/config';
 import { signOut } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import LoginModal from './LoginModal';
 
 interface NavbarProps {
   cartCount: number;
